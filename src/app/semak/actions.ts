@@ -1,6 +1,8 @@
 "use server";
 
+import { headers } from "next/headers";
 import { createApprovalToken } from "../../lib/approval-token";
+import { resolveAppBaseUrl } from "../../lib/app-url";
 import { formatRoom, formatSlot } from "../../lib/booking-rules";
 import { formatMalayDate } from "../../lib/date";
 import { requiredText } from "../../lib/form";
@@ -8,10 +10,6 @@ import { normalizePhoneNumber } from "../../lib/phone";
 import { listPendingBookingsByContact, updateApprovalTokenHash } from "../../lib/repository";
 import type { CheckBookingState } from "../../lib/types";
 import { buildWhatsAppShareUrl, getWhatsAppAdminPhone } from "../../lib/whatsapp";
-
-function getAppBaseUrl() {
-  return process.env.APP_BASE_URL?.replace(/\/$/, "") || "http://localhost:3000";
-}
 
 export async function checkBookingAction(
   _previousState: CheckBookingState,
@@ -43,7 +41,7 @@ export async function checkBookingAction(
       bookings.map(async (booking) => {
         const { token, hash } = await createApprovalToken(booking.id);
         await updateApprovalTokenHash(booking.id, hash);
-        const approvalUrl = `${getAppBaseUrl()}/approve/${booking.id}?token=${encodeURIComponent(token)}`;
+        const approvalUrl = `${resolveAppBaseUrl(process.env.APP_BASE_URL, headers())}/approve/${booking.id}?token=${encodeURIComponent(token)}`;
 
         return {
           id: booking.id,

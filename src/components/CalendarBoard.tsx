@@ -1,8 +1,16 @@
 import { formatSlot, getSlotBooking, rooms } from "../lib/booking-rules";
 import { formatDayName, formatMalayDate } from "../lib/date";
-import type { Booking } from "../lib/types";
+import type { Booking, Room } from "../lib/types";
 
-export function CalendarBoard({ bookings, dates }: { bookings: Booking[]; dates: string[] }) {
+export function CalendarBoard({
+  activeMobileRoom,
+  bookings,
+  dates
+}: {
+  activeMobileRoom: Room;
+  bookings: Booking[];
+  dates: string[];
+}) {
   return (
     <div className="calendarWrap">
       <div className="calendarGrid headerGrid">
@@ -31,7 +39,10 @@ export function CalendarBoard({ bookings, dates }: { bookings: Booking[]; dates:
             <span>{formatMalayDate(date, { year: undefined })}</span>
           </div>
           {rooms.map((room) => (
-            <div className="slotPair" key={`${date}-${room.id}`}>
+            <div
+              className={room.id === activeMobileRoom ? "slotPair" : "slotPair inactiveMobileRoom"}
+              key={`${date}-${room.id}`}
+            >
               <div className="mobileRoomLabel">{room.name}</div>
               {(["am", "pm"] as const).map((slot) => {
                 const booking = getSlotBooking(bookings, room.id, date, slot);

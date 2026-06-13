@@ -2,7 +2,9 @@
 
 import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { createApprovalToken } from "../lib/approval-token";
+import { resolveAppBaseUrl } from "../lib/app-url";
 import { formatRoom, formatSlot, getConflictingBooking } from "../lib/booking-rules";
 import { formatMalayDate } from "../lib/date";
 import { parseRoom, parseSlot, requiredText } from "../lib/form";
@@ -10,10 +12,6 @@ import { normalizePhoneNumber } from "../lib/phone";
 import { createBooking, listActiveBookings } from "../lib/repository";
 import type { BookingFormState } from "../lib/types";
 import { buildWhatsAppShareUrl, getWhatsAppAdminPhone } from "../lib/whatsapp";
-
-function getAppBaseUrl() {
-  return process.env.APP_BASE_URL?.replace(/\/$/, "") || "http://localhost:3000";
-}
 
 export async function createBookingAction(
   _previousState: BookingFormState,
@@ -61,7 +59,7 @@ export async function createBookingAction(
       approval_token_hash: hash
     });
 
-    const approvalUrl = `${getAppBaseUrl()}/approve/${booking.id}?token=${encodeURIComponent(token)}`;
+    const approvalUrl = `${resolveAppBaseUrl(process.env.APP_BASE_URL, headers())}/approve/${booking.id}?token=${encodeURIComponent(token)}`;
     const adminPhone = getWhatsAppAdminPhone();
     const whatsappUrl = adminPhone
       ? buildWhatsAppShareUrl(adminPhone, {

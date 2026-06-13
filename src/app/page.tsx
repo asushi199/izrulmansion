@@ -16,6 +16,7 @@ import { isSupabaseConfigured } from "../lib/supabase";
 import type { Booking } from "../lib/types";
 
 type SearchParams = {
+  room?: string;
   view?: string;
   start?: string;
 };
@@ -50,6 +51,7 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
   const view = searchParams.view === "month" ? "month" : "week";
   const baseStart = searchParams.start || today;
   const start = view === "month" ? startOfMonth(baseStart) : startOfWeek(baseStart);
+  const activeMobileRoom = rooms.find((room) => room.id === searchParams.room)?.id ?? rooms[0].id;
   const dates = listDateRange(start, view === "month" ? 30 : 7);
   const previousStart = view === "month" ? addMonths(start, -1) : addDays(start, -7);
   const nextStart = view === "month" ? addMonths(start, 1) : addDays(start, 7);
@@ -71,11 +73,10 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
     <main className="shell">
       <nav className="topNav">
         <Link className="brandMark" href="/">
-          <span>PKG</span>
+          <img alt="Logo PKG Pantai Remis" className="brandLogo" src="/logopkgpr.jpeg" />
           <strong>Tempahan Bilik</strong>
         </Link>
         <div className="topNavLinks">
-          <Link href="#tempah">Tempah Sekarang</Link>
           <Link href="/admin">Admin</Link>
         </div>
       </nav>
@@ -148,13 +149,24 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
               </p>
             </div>
             <div className="viewControls">
-              <Link className={view === "week" ? "activePill" : "pill"} href={`/?view=week&start=${start}`}>
+              <Link className={view === "week" ? "activePill" : "pill"} href={`/?view=week&start=${start}&room=${activeMobileRoom}`}>
                 Minggu
               </Link>
-              <Link className={view === "month" ? "activePill" : "pill"} href={`/?view=month&start=${start}`}>
+              <Link className={view === "month" ? "activePill" : "pill"} href={`/?view=month&start=${start}&room=${activeMobileRoom}`}>
                 Bulan
               </Link>
             </div>
+          </div>
+          <div className="roomSwitch" aria-label="Pilih bilik untuk paparan telefon">
+            {rooms.map((room) => (
+              <Link
+                className={room.id === activeMobileRoom ? "activeRoomTab" : "roomTab"}
+                href={`/?view=${view}&start=${start}&room=${room.id}`}
+                key={room.id}
+              >
+                {room.name}
+              </Link>
+            ))}
           </div>
           <div className="statusLegend" aria-label="Petunjuk status">
             <span>
@@ -168,20 +180,23 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
             </span>
           </div>
           <div className="navRow">
-            <Link className="ghostButton" href={`/?view=${view}&start=${previousStart}`}>
+            <Link className="ghostButton" href={`/?view=${view}&start=${previousStart}&room=${activeMobileRoom}`}>
               Sebelum
             </Link>
-            <Link className="ghostButton" href={`/?view=${view}&start=${today}`}>
+            <Link className="ghostButton" href={`/?view=${view}&start=${today}&room=${activeMobileRoom}`}>
               Hari ini
             </Link>
-            <Link className="ghostButton" href={`/?view=${view}&start=${nextStart}`}>
+            <Link className="ghostButton" href={`/?view=${view}&start=${nextStart}&room=${activeMobileRoom}`}>
               Seterusnya
             </Link>
           </div>
-          <CalendarBoard bookings={bookings} dates={dates} />
+          <CalendarBoard activeMobileRoom={activeMobileRoom} bookings={bookings} dates={dates} />
         </div>
         <BookingForm bookings={bookings} configured={configured && !bookingError} />
       </section>
+      <Link className="floatingBookButton" href="#tempah" aria-label="Tempah sekarang">
+        +
+      </Link>
     </main>
   );
 }
