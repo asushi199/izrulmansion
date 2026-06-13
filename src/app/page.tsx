@@ -75,7 +75,7 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
           <strong>Tempahan Bilik</strong>
         </Link>
         <div className="topNavLinks">
-          <Link href="/semak">Semak Status</Link>
+          <Link href="#tempah">Tempah Sekarang</Link>
           <Link href="/admin">Admin</Link>
         </div>
       </nav>
@@ -93,7 +93,7 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
             Semak Permohonan
           </Link>
           <Link className="primaryButton" href="#tempah">
-            Permohonan Baharu
+            Tempah Sekarang
           </Link>
         </div>
       </section>

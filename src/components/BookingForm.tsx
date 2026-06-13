@@ -86,23 +86,16 @@ export function BookingForm({
           </label>
         </div>
 
-        <fieldset className="choiceField">
-          <legend>Slot</legend>
-          <div className="segmentControl">
+        <label>
+          Slot
+          <select name="slot" onChange={(event) => setSlot(event.target.value as Slot)} value={slot}>
             {slots.map((item) => (
-              <label className={slot === item.id ? "segmentOption active" : "segmentOption"} key={item.id}>
-                <input
-                  checked={slot === item.id}
-                  name="slot"
-                  onChange={() => setSlot(item.id)}
-                  type="radio"
-                  value={item.id}
-                />
-                <span>{item.label}</span>
-              </label>
+              <option key={item.id} value={item.id}>
+                {item.label}
+              </option>
             ))}
-          </div>
-        </fieldset>
+          </select>
+        </label>
 
         {conflict ? (
           <div className="notice error">
