@@ -1,10 +1,16 @@
-import { afterEach, describe, expect, it } from "vitest";
-import { isSupabaseConfigured } from "../src/lib/supabase";
+import { createClient } from "@supabase/supabase-js";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { getSupabaseAdmin, isSupabaseConfigured } from "../src/lib/supabase";
+
+vi.mock("@supabase/supabase-js", () => ({
+  createClient: vi.fn(() => ({ from: vi.fn() }))
+}));
 
 const originalEnv = { ...process.env };
 
 afterEach(() => {
   process.env = { ...originalEnv };
+  vi.clearAllMocks();
 });
 
 describe("Supabase configuration detection", () => {
@@ -20,5 +26,18 @@ describe("Supabase configuration detection", () => {
     process.env.SUPABASE_SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.service-role";
 
     expect(isSupabaseConfigured()).toBe(true);
+  });
+
+  it("trims Supabase credentials before creating the admin client", () => {
+    process.env.SUPABASE_URL = " https://abcdefghijklmnop.supabase.co\n";
+    process.env.SUPABASE_SERVICE_ROLE_KEY = " eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.service-role\n";
+
+    getSupabaseAdmin();
+
+    expect(createClient).toHaveBeenCalledWith(
+      "https://abcdefghijklmnop.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.service-role",
+      expect.any(Object)
+    );
   });
 });

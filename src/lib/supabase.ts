@@ -5,24 +5,31 @@ function isPlaceholder(value: string) {
   return value.includes("your-project") || value.includes("your-service-role-key");
 }
 
-export function isSupabaseConfigured() {
+function getSupabaseConfig() {
   const url = process.env.SUPABASE_URL?.trim();
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
 
-  if (!url || !serviceRoleKey) return false;
-  if (isPlaceholder(url) || isPlaceholder(serviceRoleKey)) return false;
+  if (!url || !serviceRoleKey) return null;
+  if (isPlaceholder(url) || isPlaceholder(serviceRoleKey)) return null;
+  if (!url.startsWith("https://") || !url.endsWith(".supabase.co")) return null;
 
-  return url.startsWith("https://") && url.endsWith(".supabase.co");
+  return { serviceRoleKey, url };
+}
+
+export function isSupabaseConfigured() {
+  return getSupabaseConfig() !== null;
 }
 
 export function getSupabaseAdmin() {
-  if (!isSupabaseConfigured()) {
+  const config = getSupabaseConfig();
+
+  if (!config) {
     return null;
   }
 
   return createClient<Database>(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    config.url,
+    config.serviceRoleKey,
     {
       auth: {
         persistSession: false
