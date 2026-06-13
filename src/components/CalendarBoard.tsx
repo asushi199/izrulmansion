@@ -1,4 +1,4 @@
-import { formatBookingStatus, formatSlot, getSlotBooking, rooms } from "../lib/booking-rules";
+import { formatSlot, getSlotBooking, rooms } from "../lib/booking-rules";
 import { formatDayName, formatMalayDate } from "../lib/date";
 import type { Booking } from "../lib/types";
 
@@ -32,9 +32,11 @@ export function CalendarBoard({ bookings, dates }: { bookings: Booking[]; dates:
           </div>
           {rooms.map((room) => (
             <div className="slotPair" key={`${date}-${room.id}`}>
+              <div className="mobileRoomLabel">{room.name}</div>
               {(["am", "pm"] as const).map((slot) => {
                 const booking = getSlotBooking(bookings, room.id, date, slot);
                 const isFullDay = booking?.slot === "full_day";
+                const statusLabel = booking?.status === "pending" ? "Menunggu Kelulusan" : "Diluluskan";
 
                 return (
                   <div
@@ -66,7 +68,7 @@ export function CalendarBoard({ bookings, dates }: { bookings: Booking[]; dates:
                         </span>
                         <strong>{booking.purpose}</strong>
                         <small>
-                          {booking.name} - {formatBookingStatus(booking.status)}
+                          {booking.name} - {statusLabel}
                         </small>
                       </>
                     ) : (

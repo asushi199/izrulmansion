@@ -12,7 +12,7 @@ function SubmitButton({ disabled }: { disabled: boolean }) {
 
   return (
     <button className="primaryButton fullWidth" disabled={disabled || pending} type="submit">
-      {pending ? "Menghantar..." : "Hantar Tempahan"}
+      {pending ? "Menghantar..." : "Hantar Permohonan"}
     </button>
   );
 }
@@ -35,10 +35,17 @@ export function BookingForm({
   }, [bookings, date, room, slot]);
 
   return (
-    <section className="bookingCard">
-      <p className="eyebrow">Tempahan baharu</p>
-      <h2>Isi Maklumat Tempahan</h2>
-      <p>Pilih bilik, tarikh dan slot. Selepas dihantar, klik butang WhatsApp untuk maklumkan admin.</p>
+    <section className="bookingCard" id="tempah">
+      <div className="formTitleRow">
+        <div>
+          <p className="eyebrow">Tempahan baharu</p>
+          <h2>Permohonan Baharu</h2>
+        </div>
+        <span className="miniBadge">Perlu kelulusan</span>
+      </div>
+      <p className="formHint">
+        Selepas permohonan dihantar, klik butang WhatsApp untuk maklumkan admin.
+      </p>
 
       <form action={formAction} className="stackForm">
         <div className="twoColumn">
@@ -79,16 +86,23 @@ export function BookingForm({
           </label>
         </div>
 
-        <label>
-          Slot
-          <select name="slot" onChange={(event) => setSlot(event.target.value as Slot)} value={slot}>
+        <fieldset className="choiceField">
+          <legend>Slot</legend>
+          <div className="segmentControl">
             {slots.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.label}
-              </option>
+              <label className={slot === item.id ? "segmentOption active" : "segmentOption"} key={item.id}>
+                <input
+                  checked={slot === item.id}
+                  name="slot"
+                  onChange={() => setSlot(item.id)}
+                  type="radio"
+                  value={item.id}
+                />
+                <span>{item.label}</span>
+              </label>
             ))}
-          </select>
-        </label>
+          </div>
+        </fieldset>
 
         {conflict ? (
           <div className="notice error">
@@ -103,7 +117,7 @@ export function BookingForm({
 
         {state.ok && state.whatsappUrl ? (
           <a className="whatsappButton fullWidth" href={state.whatsappUrl} rel="noreferrer" target="_blank">
-            Hantar WhatsApp kepada admin
+            Hantar ke WhatsApp
           </a>
         ) : null}
 

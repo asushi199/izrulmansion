@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BookingForm } from "../components/BookingForm";
 import { CalendarBoard } from "../components/CalendarBoard";
+import { getSlotBooking, rooms } from "../lib/booking-rules";
 import {
   addDays,
   addMonths,
@@ -18,6 +19,31 @@ type SearchParams = {
   view?: string;
   start?: string;
 };
+
+function buildRoomSummaries(bookings: Booking[], dates: string[]) {
+  return rooms.map((room) => {
+    let pending = 0;
+    let approved = 0;
+
+    for (const date of dates) {
+      for (const slot of ["am", "pm"] as const) {
+        const booking = getSlotBooking(bookings, room.id, date, slot);
+
+        if (booking?.status === "pending") pending += 1;
+        if (booking?.status === "approved") approved += 1;
+      }
+    }
+
+    const totalSlots = dates.length * 2;
+
+    return {
+      ...room,
+      approved,
+      available: Math.max(totalSlots - pending - approved, 0),
+      pending
+    };
+  });
+}
 
 export default async function HomePage({ searchParams }: { searchParams: SearchParams }) {
   const today = toIsoDate(new Date());
@@ -39,26 +65,35 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
     }
   }
 
+  const roomSummaries = buildRoomSummaries(bookings, dates);
+
   return (
     <main className="shell">
-      <section className="hero">
+      <nav className="topNav">
+        <Link className="brandMark" href="/">
+          <span>PKG</span>
+          <strong>Tempahan Bilik</strong>
+        </Link>
+        <div className="topNavLinks">
+          <Link href="/semak">Semak Status</Link>
+          <Link href="/admin">Admin</Link>
+        </div>
+      </nav>
+
+      <section className="dashboardHeader">
         <div>
           <p className="eyebrow">PKG Pantai Remis</p>
-          <h1>Tempahan Bilik Mesyuarat & Studio</h1>
+          <h1>Tempahan Bilik PKG Pantai Remis</h1>
           <p className="heroText">
-            Semak kekosongan bilik secara langsung dan rekod tempahan untuk slot pagi, petang
-            atau sepanjang hari.
+            Pilih bilik, semak slot kosong dan hantar permohonan untuk kelulusan admin.
           </p>
         </div>
-        <div className="heroActions">
-          <Link className="ghostButton" href="/admin">
-            Admin
-          </Link>
+        <div className="heroActions compactActions">
           <Link className="ghostButton" href="/semak">
-            Semak permohonan
+            Semak Permohonan
           </Link>
-          <Link className="primaryButton" href="#jadual">
-            Jadual Online
+          <Link className="primaryButton" href="#tempah">
+            Permohonan Baharu
           </Link>
         </div>
       </section>
@@ -77,8 +112,32 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
         </div>
       ) : null}
 
+      <section className="roomSummaryGrid" aria-label="Ringkasan status bilik">
+        {roomSummaries.map((room) => (
+          <article className="roomSummaryCard" key={room.id}>
+            <div>
+              <p className="eyebrow">Paparan {view === "month" ? "bulan" : "minggu"} ini</p>
+              <h2>{room.name}</h2>
+            </div>
+            <div className="summaryMetrics">
+              <span>
+                <strong>{room.available}</strong>
+                Kosong
+              </span>
+              <span>
+                <strong>{room.pending}</strong>
+                Menunggu
+              </span>
+              <span>
+                <strong>{room.approved}</strong>
+                Diluluskan
+              </span>
+            </div>
+          </article>
+        ))}
+      </section>
+
       <section className="workspace">
-        <BookingForm bookings={bookings} configured={configured && !bookingError} />
         <div className="schedulePanel" id="jadual">
           <div className="panelHeader">
             <div>
@@ -97,6 +156,17 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
               </Link>
             </div>
           </div>
+          <div className="statusLegend" aria-label="Petunjuk status">
+            <span>
+              <i className="legendDot availableDot" /> Kosong
+            </span>
+            <span>
+              <i className="legendDot pendingDot" /> Menunggu Kelulusan
+            </span>
+            <span>
+              <i className="legendDot bookedDot" /> Diluluskan
+            </span>
+          </div>
           <div className="navRow">
             <Link className="ghostButton" href={`/?view=${view}&start=${previousStart}`}>
               Sebelum
@@ -110,6 +180,7 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
           </div>
           <CalendarBoard bookings={bookings} dates={dates} />
         </div>
+        <BookingForm bookings={bookings} configured={configured && !bookingError} />
       </section>
     </main>
   );
