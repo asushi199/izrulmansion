@@ -78,6 +78,7 @@ select {
   display: inline-flex;
   gap: 10px;
   font-size: 0.92rem;
+  min-width: 0;
 }
 
 .brandLogo {
@@ -902,9 +903,29 @@ select:focus {
   }
 
   .topNav {
-    align-items: stretch;
-    flex-direction: column;
-    position: static;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    padding: 8px;
+    position: sticky;
+    top: 8px;
+  }
+
+  .brandMark {
+    flex: 1;
+  }
+
+  .brandMark strong {
+    font-size: 0.98rem;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .brandLogo {
+    height: 34px;
+    width: 34px;
   }
 
   .adminTop {
@@ -912,7 +933,13 @@ select:focus {
   }
 
   .topNavLinks {
-    justify-content: space-between;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+  }
+
+  .topNavLinks a {
+    background: var(--card-soft);
+    padding: 8px 10px;
   }
 
   .dashboardHeader h1,
