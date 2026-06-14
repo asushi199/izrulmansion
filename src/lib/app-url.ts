@@ -3,7 +3,9 @@ export function resolveAppBaseUrl(
   requestHeaders: Pick<Headers, "get">
 ) {
   const configured = configuredBaseUrl?.trim().replace(/\/+$/, "");
-  if (configured) return configured;
+  if (configured) {
+    return /^https?:\/\//i.test(configured) ? configured : `https://${configured}`;
+  }
 
   const forwardedHost = requestHeaders.get("x-forwarded-host")?.trim();
   const host = forwardedHost || requestHeaders.get("host")?.trim();

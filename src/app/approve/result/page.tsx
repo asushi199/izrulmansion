@@ -16,6 +16,11 @@ const messages: Record<string, { title: string; body: string; tone: "success" | 
     body: "Token kelulusan tidak sah. Sila gunakan pautan asal daripada WhatsApp.",
     tone: "error"
   },
+  unauthorized: {
+    title: "Kata Laluan Tidak Sah",
+    body: "Kelulusan hanya boleh dibuat selepas kata laluan admin yang betul dimasukkan.",
+    tone: "error"
+  },
   processed: {
     title: "Telah Diproses",
     body: "Permohonan ini telah diproses sebelum ini.",

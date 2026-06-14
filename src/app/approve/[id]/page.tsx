@@ -61,24 +61,28 @@ export default async function ApprovalPage({
             </div>
 
             {booking.status === "pending" ? (
-              <div className="approvalActions">
-                <form action={approveByTokenAction}>
-                  <input name="bookingId" type="hidden" value={booking.id} />
-                  <input name="token" type="hidden" value={token} />
-                  <input name="decision" type="hidden" value="approve" />
-                  <button className="primaryButton fullWidth" type="submit">
+              <form action={approveByTokenAction} className="approvalSecureForm">
+                <input name="bookingId" type="hidden" value={booking.id} />
+                <input name="token" type="hidden" value={token} />
+                <label>
+                  Kata laluan admin
+                  <input
+                    autoComplete="current-password"
+                    name="adminPassword"
+                    placeholder="Masukkan kata laluan admin"
+                    required
+                    type="password"
+                  />
+                </label>
+                <div className="approvalActions">
+                  <button className="primaryButton fullWidth" name="decision" type="submit" value="approve">
                     Luluskan
                   </button>
-                </form>
-                <form action={approveByTokenAction}>
-                  <input name="bookingId" type="hidden" value={booking.id} />
-                  <input name="token" type="hidden" value={token} />
-                  <input name="decision" type="hidden" value="reject" />
-                  <button className="dangerButton fullWidth" type="submit">
+                  <button className="dangerButton fullWidth" name="decision" type="submit" value="reject">
                     Tolak
                   </button>
-                </form>
-              </div>
+                </div>
+              </form>
             ) : (
               <div className="notice success">Permohonan ini telah diproses.</div>
             )}

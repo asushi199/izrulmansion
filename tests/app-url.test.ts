@@ -8,6 +8,12 @@ describe("app base URL resolution", () => {
     );
   });
 
+  it("adds https to configured production domains that omit a protocol", () => {
+    expect(resolveAppBaseUrl("izrulmansion.vercel.app", new Headers())).toBe(
+      "https://izrulmansion.vercel.app"
+    );
+  });
+
   it("uses forwarded production headers when APP_BASE_URL is not configured", () => {
     const headers = new Headers({
       "x-forwarded-host": "tempahan.pkgpr.edu.my",

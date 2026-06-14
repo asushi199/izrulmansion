@@ -916,6 +916,16 @@ select:focus {
   margin-top: 18px;
 }
 
+.approvalSecureForm {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.approvalSecureForm .approvalActions {
+  margin-top: 0;
+}
+
 .approvalDetails {
   background: var(--card-soft);
   border: 1px solid var(--line);
