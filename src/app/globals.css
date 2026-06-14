@@ -885,13 +885,79 @@ select:focus {
   margin-top: 18px;
 }
 
+.adminTimeline {
+  display: grid;
+  gap: 12px;
+}
+
+.adminYearGroup,
+.adminMonthGroup {
+  display: grid;
+  gap: 10px;
+}
+
+.adminGroupSummary,
+.adminMonthSummary {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(220, 231, 239, 0.95);
+  border-radius: 8px;
+  cursor: pointer;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: auto 1fr auto;
+  list-style: none;
+}
+
+.adminGroupSummary {
+  box-shadow: var(--shadow-soft);
+  font-size: 1.05rem;
+  font-weight: 900;
+  padding: 12px 14px;
+}
+
+.adminMonthSummary {
+  background: #f8fbfd;
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 850;
+  margin: 0 0 8px;
+  padding: 9px 12px;
+}
+
+.adminGroupSummary::-webkit-details-marker,
+.adminMonthSummary::-webkit-details-marker {
+  display: none;
+}
+
+.adminGroupSummary::before,
+.adminMonthSummary::before {
+  color: var(--primary);
+  content: ">";
+  font-size: 0.82rem;
+  margin-right: 2px;
+  transition: transform 160ms ease;
+}
+
+.adminYearGroup[open] > .adminGroupSummary::before,
+.adminMonthGroup[open] > .adminMonthSummary::before {
+  transform: rotate(90deg);
+}
+
+.adminGroupSummary strong,
+.adminMonthSummary strong {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.adminMonthList,
 .adminList {
   display: grid;
-  gap: 14px;
+  gap: 10px;
 }
 
 .adminItem {
-  padding: 18px;
+  padding: 12px;
 }
 
 .adminItem.cancelled {
@@ -901,15 +967,58 @@ select:focus {
 .adminItemMain {
   align-items: flex-start;
   display: flex;
-  gap: 18px;
+  gap: 12px;
   justify-content: space-between;
+}
+
+.adminItemContent {
+  min-width: 0;
+}
+
+.adminItemHeader,
+.adminMetaList {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.adminItemHeader {
+  gap: 8px;
+}
+
+.adminDateText {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.adminMetaList {
+  color: var(--muted);
+  gap: 5px 8px;
+  margin-top: 4px;
+}
+
+.adminMetaList span {
+  background: var(--card-soft);
+  border: 1px solid rgba(220, 231, 239, 0.9);
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 3px 8px;
 }
 
 .adminActions,
 .approvalActions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 6px;
+}
+
+.adminActions .primaryButton,
+.adminActions .dangerButton {
+  font-size: 0.72rem;
+  min-height: 30px;
+  padding: 0 10px;
 }
 
 .approvalActions {
@@ -954,20 +1063,21 @@ select:focus {
 
 .editPanel {
   border-top: 1px solid var(--line);
-  margin-top: 14px;
-  padding-top: 14px;
+  margin-top: 10px;
+  padding-top: 10px;
 }
 
 .editPanel summary {
   cursor: pointer;
+  font-size: 0.82rem;
   font-weight: 900;
 }
 
 .adminEditForm {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   grid-template-columns: repeat(3, minmax(160px, 1fr));
-  margin-top: 14px;
+  margin-top: 10px;
 }
 
 .adminEditForm .primaryButton {
