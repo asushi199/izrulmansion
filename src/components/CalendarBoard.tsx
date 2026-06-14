@@ -1,4 +1,4 @@
-import { formatSlot, getSlotBooking, rooms } from "../lib/booking-rules";
+import { getSlotBooking, rooms } from "../lib/booking-rules";
 import { formatDayName, formatMalayDate } from "../lib/date";
 import type { Booking, Room } from "../lib/types";
 
@@ -13,7 +13,7 @@ export function CalendarBoard({
 }) {
   return (
     <div className="calendarWrap">
-      <div className="calendarGrid headerGrid">
+      <div className="calendarGrid headerGrid calendarDesktopOnly">
         <div className="dateHeader">Tarikh</div>
         {rooms.map((room) => (
           <div className="roomHeader" key={room.id}>
@@ -22,7 +22,7 @@ export function CalendarBoard({
         ))}
       </div>
 
-      <div className="calendarGrid slotHeaderGrid">
+      <div className="calendarGrid slotHeaderGrid calendarDesktopOnly">
         <div />
         {rooms.map((room) => (
           <div className="slotHeaderPair" key={room.id}>
@@ -49,45 +49,29 @@ export function CalendarBoard({
                 const isFullDay = booking?.slot === "full_day";
                 const statusLabel = booking?.status === "pending" ? "Menunggu Kelulusan" : "Diluluskan";
 
+                const cellTone = booking
+                  ? booking.status === "pending"
+                    ? "pending"
+                    : "booked"
+                  : "available";
+
                 return (
-                  <div
-                    className={
-                      booking
-                        ? booking.status === "pending"
-                          ? "slotCell pending"
-                          : "slotCell booked"
-                        : "slotCell available"
-                    }
-                    key={slot}
-                  >
+                  <div className={`slotCell slotCell--${cellTone}`} key={slot}>
+                    <span className="slotTime">{slot === "am" ? "Pagi" : "Petang"}</span>
                     {booking ? (
                       <>
-                        <span
-                          className={
-                            booking.status === "pending"
-                              ? "statusBadge pendingBadge"
-                              : isFullDay
-                                ? "statusBadge fullDay"
-                                : "statusBadge bookedBadge"
-                          }
-                        >
-                          {booking.status === "pending"
-                            ? "Menunggu"
-                            : isFullDay
-                              ? "Penuh hari"
-                              : formatSlot(booking.slot)}
-                        </span>
-                        <strong>{booking.purpose}</strong>
-                        <small>
-                          {booking.name} - {statusLabel}
-                        </small>
+                        <p className="slotPurpose" title={booking.purpose}>
+                          {booking.purpose}
+                        </p>
+                        <p className="slotMeta">
+                          {booking.name}
+                          <span className="slotMetaDivider">·</span>
+                          {statusLabel}
+                        </p>
+                        {isFullDay ? <span className="slotTag slotTag--fullDay">Penuh hari</span> : null}
                       </>
                     ) : (
-                      <>
-                        <span className="statusBadge openBadge">Kosong</span>
-                        <strong>{slot === "am" ? "Pagi" : "Petang"}</strong>
-                        <small>Sedia ditempah</small>
-                      </>
+                      <span className="slotEmpty">Kosong</span>
                     )}
                   </div>
                 );

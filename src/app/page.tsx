@@ -141,54 +141,59 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
       <section className="workspace">
         <div className="schedulePanel" id="jadual">
           <div className="panelHeader">
-            <div>
+            <div className="scheduleIntro">
               <p className="eyebrow">Status tempahan</p>
               <h2>{view === "month" ? "Paparan Bulanan" : "Paparan Mingguan"}</h2>
-              <p>
+              <p className="scheduleRange">
                 {formatMalayDate(dates[0])} - {formatMalayDate(dates[dates.length - 1])}
               </p>
             </div>
-            <div className="viewControls">
-              <Link className={view === "week" ? "activePill" : "pill"} href={`/?view=week&start=${start}&room=${activeMobileRoom}`}>
-                Minggu
-              </Link>
-              <Link className={view === "month" ? "activePill" : "pill"} href={`/?view=month&start=${start}&room=${activeMobileRoom}`}>
-                Bulan
-              </Link>
+            <div className="scheduleControls">
+              <div className="viewControls" aria-label="Pilih paparan">
+                <Link className={view === "week" ? "activePill" : "pill"} href={`/?view=week&start=${start}&room=${activeMobileRoom}`} scroll={false}>
+                  Minggu
+                </Link>
+                <Link className={view === "month" ? "activePill" : "pill"} href={`/?view=month&start=${start}&room=${activeMobileRoom}`} scroll={false}>
+                  Bulan
+                </Link>
+              </div>
+              <div className="roomSwitch" aria-label="Pilih bilik untuk paparan telefon">
+                {rooms.map((room) => (
+                  <Link
+                    className={room.id === activeMobileRoom ? "activeRoomTab" : "roomTab"}
+                    href={`/?view=${view}&start=${start}&room=${room.id}`}
+                    key={room.id}
+                    scroll={false}
+                  >
+                    {room.name}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="roomSwitch" aria-label="Pilih bilik untuk paparan telefon">
-            {rooms.map((room) => (
-              <Link
-                className={room.id === activeMobileRoom ? "activeRoomTab" : "roomTab"}
-                href={`/?view=${view}&start=${start}&room=${room.id}`}
-                key={room.id}
-              >
-                {room.name}
+          <div className="scheduleMeta">
+            <div className="navRow" aria-label="Navigasi tarikh">
+              <Link className="ghostButton" href={`/?view=${view}&start=${previousStart}&room=${activeMobileRoom}`} scroll={false}>
+                Sebelum
               </Link>
-            ))}
-          </div>
-          <div className="statusLegend" aria-label="Petunjuk status">
-            <span>
-              <i className="legendDot availableDot" /> Kosong
-            </span>
-            <span>
-              <i className="legendDot pendingDot" /> Menunggu Kelulusan
-            </span>
-            <span>
-              <i className="legendDot bookedDot" /> Diluluskan
-            </span>
-          </div>
-          <div className="navRow">
-            <Link className="ghostButton" href={`/?view=${view}&start=${previousStart}&room=${activeMobileRoom}`}>
-              Sebelum
-            </Link>
-            <Link className="ghostButton" href={`/?view=${view}&start=${today}&room=${activeMobileRoom}`}>
-              Hari ini
-            </Link>
-            <Link className="ghostButton" href={`/?view=${view}&start=${nextStart}&room=${activeMobileRoom}`}>
-              Seterusnya
-            </Link>
+              <Link className="ghostButton navToday" href={`/?view=${view}&start=${today}&room=${activeMobileRoom}`} scroll={false}>
+                Hari ini
+              </Link>
+              <Link className="ghostButton" href={`/?view=${view}&start=${nextStart}&room=${activeMobileRoom}`} scroll={false}>
+                Seterusnya
+              </Link>
+            </div>
+            <div className="statusLegend" aria-label="Petunjuk status">
+              <span>
+                <i className="legendDot availableDot" /> Kosong
+              </span>
+              <span>
+                <i className="legendDot pendingDot" /> Menunggu
+              </span>
+              <span>
+                <i className="legendDot bookedDot" /> Diluluskan
+              </span>
+            </div>
           </div>
           <CalendarBoard activeMobileRoom={activeMobileRoom} bookings={bookings} dates={dates} />
         </div>

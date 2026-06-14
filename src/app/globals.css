@@ -14,8 +14,12 @@
   --danger-bg: #ffe8ec;
   --warning: #8a5a00;
   --warning-bg: #fff4cf;
-  --shadow: 0 18px 44px rgba(22, 52, 72, 0.1);
-  --shadow-soft: 0 8px 24px rgba(22, 52, 72, 0.08);
+  --shadow: 0 12px 32px rgba(22, 52, 72, 0.08);
+  --shadow-soft: 0 4px 16px rgba(22, 52, 72, 0.06);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --control-h: 32px;
+  --control-h-sm: 28px;
 }
 
 * {
@@ -60,14 +64,14 @@ select {
 
 .topNav {
   align-items: center;
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.88);
   border: 1px solid rgba(220, 231, 239, 0.9);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
   display: flex;
   justify-content: space-between;
-  margin-bottom: 16px;
-  padding: 10px 12px;
+  margin-bottom: 14px;
+  padding: 8px 10px;
   position: sticky;
   top: 12px;
   z-index: 20;
@@ -109,11 +113,11 @@ select {
 }
 
 .topNavLinks a {
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   color: var(--muted);
-  font-size: 0.86rem;
-  font-weight: 800;
-  padding: 9px 11px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 9px;
 }
 
 .topNavLinks a:hover {
@@ -183,9 +187,9 @@ select {
 
 .eyebrow {
   color: var(--primary);
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   margin: 0;
   text-transform: uppercase;
 }
@@ -196,7 +200,7 @@ select {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .compactActions {
@@ -211,53 +215,54 @@ select {
 .activePill {
   align-items: center;
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   display: inline-flex;
-  font-size: 0.88rem;
-  font-weight: 900;
+  font-size: 0.78rem;
+  font-weight: 700;
   justify-content: center;
-  min-height: 40px;
-  padding: 0 14px;
+  letter-spacing: 0.01em;
+  min-height: var(--control-h);
+  padding: 0 11px;
   transition:
     box-shadow 160ms ease,
-    transform 160ms ease,
-    background 160ms ease;
+    background 160ms ease,
+    border-color 160ms ease;
 }
 
 .primaryButton {
-  background: linear-gradient(135deg, var(--primary), #0ea5b7);
-  box-shadow: 0 10px 20px rgba(8, 133, 138, 0.2);
+  background: linear-gradient(135deg, var(--primary), #0a9aa0);
+  box-shadow: 0 4px 12px rgba(8, 133, 138, 0.18);
   color: #fff;
 }
 
 .whatsappButton {
-  background: linear-gradient(135deg, #0c9b5a, #20c874);
-  box-shadow: 0 10px 20px rgba(12, 155, 90, 0.18);
+  background: linear-gradient(135deg, #0c9b5a, #18b866);
+  box-shadow: 0 4px 12px rgba(12, 155, 90, 0.16);
   color: #fff;
 }
 
 .primaryButton:hover,
 .whatsappButton:hover {
-  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(8, 133, 138, 0.22);
 }
 
 .primaryButton:disabled {
   cursor: not-allowed;
   opacity: 0.55;
-  transform: none;
 }
 
 .ghostButton,
 .pill {
   background: #fff;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(220, 231, 239, 0.95);
   color: var(--ink);
 }
 
 .ghostButton:hover,
 .pill:hover {
   background: var(--card-soft);
+  border-color: #cfdce6;
 }
 
 .dangerButton {
@@ -267,26 +272,75 @@ select {
 
 .activePill {
   background: var(--ink);
+  box-shadow: 0 1px 3px rgba(18, 34, 50, 0.14);
   color: #fff;
+}
+
+.viewControls,
+.roomSwitch {
+  background: #eef3f7;
+  border: 1px solid rgba(220, 231, 239, 0.9);
+  border-radius: var(--radius-sm);
+  gap: 3px;
+  padding: 3px;
+}
+
+.viewControls .pill,
+.viewControls .activePill,
+.roomTab,
+.activeRoomTab {
+  border: 0;
+  border-radius: 5px;
+  flex: 1 1 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  justify-content: center;
+  min-height: var(--control-h-sm);
+  min-width: 0;
+  padding: 0 8px;
+  text-align: center;
+  width: 100%;
+}
+
+.viewControls .pill,
+.roomTab {
+  background: transparent;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.viewControls .pill:hover,
+.roomTab:hover {
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.viewControls .activePill,
+.activeRoomTab {
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(18, 34, 50, 0.08);
+  color: var(--ink);
+  font-weight: 800;
 }
 
 .floatingBookButton {
   align-items: center;
-  background: linear-gradient(135deg, var(--primary), #0ea5b7);
+  background: linear-gradient(135deg, var(--primary), #0a9aa0);
   border: 1px solid rgba(255, 255, 255, 0.82);
   border-radius: 999px;
-  bottom: 22px;
-  box-shadow: 0 16px 34px rgba(8, 133, 138, 0.32);
+  bottom: 18px;
+  box-shadow: 0 10px 24px rgba(8, 133, 138, 0.26);
   color: #fff;
   display: inline-flex;
-  font-size: 2rem;
-  font-weight: 850;
-  height: 58px;
+  font-size: 1.65rem;
+  font-weight: 700;
+  height: 50px;
   justify-content: center;
   line-height: 1;
   position: fixed;
-  right: 22px;
-  width: 58px;
+  right: 18px;
+  width: 50px;
   z-index: 30;
 }
 
@@ -303,15 +357,15 @@ select {
 
 .roomSummaryCard {
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(240, 253, 252, 0.88)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(245, 252, 251, 0.9)),
     var(--card);
   border: 1px solid rgba(220, 231, 239, 0.92);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
   display: grid;
-  gap: 18px;
+  gap: 14px;
   grid-template-columns: 1fr auto;
-  padding: 16px;
+  padding: 13px 14px;
 }
 
 .roomSummaryCard h2 {
@@ -328,19 +382,19 @@ select {
   align-items: center;
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   color: var(--muted);
   display: grid;
-  font-size: 0.72rem;
-  font-weight: 800;
-  min-width: 76px;
-  padding: 8px 10px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  min-width: 68px;
+  padding: 6px 8px;
   text-align: center;
 }
 
 .summaryMetrics strong {
   color: var(--ink);
-  font-size: 1.15rem;
+  font-size: 1rem;
   line-height: 1;
 }
 
@@ -356,17 +410,17 @@ select {
 .authCard,
 .emptyState,
 .adminItem {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   border: 1px solid rgba(220, 231, 239, 0.95);
-  border-radius: 8px;
-  box-shadow: var(--shadow);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
 }
 
 .bookingCard,
 .schedulePanel,
 .authCard,
 .emptyState {
-  padding: 18px;
+  padding: 14px;
 }
 
 .bookingCard {
@@ -399,9 +453,9 @@ select {
   border-radius: 999px;
   color: var(--warning);
   flex: 0 0 auto;
-  font-size: 0.72rem;
-  font-weight: 900;
-  padding: 6px 9px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  padding: 4px 8px;
 }
 
 .stackForm {
@@ -428,17 +482,18 @@ input,
 select {
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   color: var(--ink);
-  min-height: 40px;
-  padding: 10px 11px;
+  font-size: 0.84rem;
+  min-height: 36px;
+  padding: 7px 10px;
   width: 100%;
 }
 
 input:focus,
 select:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(8, 133, 138, 0.11);
+  box-shadow: 0 0 0 3px rgba(8, 133, 138, 0.1);
   outline: 0;
 }
 
@@ -477,57 +532,61 @@ select:focus {
   justify-content: space-between;
 }
 
+.scheduleIntro p {
+  margin: 0;
+}
+
+.scheduleRange {
+  color: var(--muted);
+  font-size: 0.86rem;
+  margin: 4px 0 0;
+}
+
+.scheduleControls {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.scheduleMeta {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.calendarDesktopOnly {
+  display: grid;
+}
+
 .statusLegend {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 14px;
-  margin-top: 12px;
+  gap: 6px 12px;
 }
 
 .statusLegend span {
   align-items: center;
   color: var(--muted);
   display: inline-flex;
-  font-size: 0.8rem;
-  font-weight: 800;
-  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  gap: 5px;
 }
 
 .legendDot {
   border-radius: 999px;
   display: inline-flex;
-  height: 9px;
-  width: 9px;
+  height: 7px;
+  width: 7px;
 }
 
 .roomSwitch {
   display: none;
-}
-
-.roomTab,
-.activeRoomTab {
-  align-items: center;
-  border-radius: 8px;
-  display: inline-flex;
-  flex: 1;
-  font-size: 0.82rem;
-  font-weight: 900;
-  justify-content: center;
-  min-height: 40px;
-  padding: 0 10px;
-  text-align: center;
-}
-
-.roomTab {
-  background: #fff;
-  border: 1px solid var(--line);
-  color: var(--muted);
-}
-
-.activeRoomTab {
-  background: var(--ink);
-  color: #fff;
 }
 
 .availableDot {
@@ -543,26 +602,36 @@ select:focus {
 }
 
 .navRow {
-  justify-content: space-between;
-  margin: 14px 0;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+}
+
+.navRow .ghostButton {
+  font-size: 0.72rem;
+  min-height: var(--control-h-sm);
+  padding: 0 8px;
 }
 
 .calendarWrap {
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 10px;
+  margin-top: 4px;
   overflow: auto;
 }
 
 .calendarGrid {
   display: grid;
-  grid-template-columns: 104px repeat(2, minmax(250px, 1fr));
-  min-width: 820px;
+  grid-template-columns: 84px repeat(2, minmax(168px, 1fr));
+  min-width: 640px;
 }
 
 .headerGrid,
 .slotHeaderGrid {
-  background: #f8fbfc;
+  background: #f6f9fb;
   border-bottom: 1px solid var(--line);
 }
 
@@ -576,10 +645,16 @@ select:focus {
 
 .dateHeader,
 .roomHeader {
-  font-size: 0.78rem;
-  font-weight: 900;
-  padding: 10px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 10px 8px;
   text-align: center;
+  text-transform: uppercase;
+}
+
+.roomHeader {
+  color: var(--ink);
 }
 
 .slotHeaderPair,
@@ -590,15 +665,20 @@ select:focus {
 
 .slotHeaderPair span {
   color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 900;
-  padding: 8px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 6px 8px;
   text-align: center;
 }
 
 .slotHeaderPair span:first-child,
 .slotCell:first-of-type {
-  border-right: 1px solid rgba(220, 231, 239, 0.85);
+  border-right: 1px solid rgba(220, 231, 239, 0.7);
+}
+
+.dayRow:nth-child(even) .dateCell,
+.dayRow:nth-child(even) .slotCell {
+  background-color: #fbfdfe;
 }
 
 .dayRow {
@@ -612,17 +692,21 @@ select:focus {
 .dateCell {
   background: #fff;
   display: grid;
-  gap: 3px;
-  padding: 10px;
+  gap: 2px;
+  padding: 8px;
+  position: sticky;
+  left: 0;
+  z-index: 1;
 }
 
 .dateCell strong {
-  font-size: 0.82rem;
+  font-size: 0.76rem;
+  font-weight: 800;
 }
 
 .dateCell span {
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.68rem;
 }
 
 .mobileRoomLabel {
@@ -630,65 +714,81 @@ select:focus {
 }
 
 .slotCell {
+  border-left: 3px solid transparent;
   display: grid;
-  gap: 5px;
-  min-height: 76px;
-  padding: 9px;
-  position: relative;
-  transition:
-    box-shadow 160ms ease,
-    transform 160ms ease;
+  gap: 2px;
+  min-height: 54px;
+  padding: 7px 8px;
 }
 
-.slotCell::before {
-  border-radius: 999px;
-  content: "";
-  height: 6px;
-  left: 9px;
-  position: absolute;
-  top: 9px;
-  width: 6px;
+.slotCell--available {
+  background: #fff;
+  border-left-color: #c8ead8;
 }
 
-.slotCell:hover {
-  box-shadow: inset 0 0 0 1px rgba(8, 133, 138, 0.16);
-  transform: translateY(-1px);
+.slotCell--booked {
+  background: #fff9fa;
+  border-left-color: #e88a97;
 }
 
-.slotCell strong {
-  font-size: 0.84rem;
-  line-height: 1.25;
-  margin-top: 18px;
+.slotCell--pending {
+  background: #fffcf5;
+  border-left-color: #e8c547;
 }
 
-.slotCell small {
+.slotTime {
   color: var(--muted);
-  font-size: 0.74rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.slotPurpose {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  overflow: hidden;
+}
+
+.slotMeta {
+  color: var(--muted);
+  font-size: 0.66rem;
   line-height: 1.35;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.available {
-  background: linear-gradient(180deg, #f6fffa, #ebf9f1);
+.slotMetaDivider {
+  margin: 0 4px;
+  opacity: 0.55;
 }
 
-.available::before {
-  background: #13a76a;
+.slotEmpty {
+  color: #8aa89a;
+  font-size: 0.72rem;
+  font-weight: 600;
 }
 
-.booked {
-  background: linear-gradient(180deg, #fff5f6, #ffe7eb);
+.slotTag {
+  border-radius: 4px;
+  display: inline-flex;
+  font-size: 0.6rem;
+  font-weight: 800;
+  justify-self: start;
+  letter-spacing: 0.02em;
+  padding: 2px 5px;
 }
 
-.booked::before {
-  background: #e0465b;
-}
-
-.pending {
-  background: linear-gradient(180deg, #fffaf0, #fff1c7);
-}
-
-.pending::before {
-  background: #f2b705;
+.slotTag--fullDay {
+  background: #ffe3e8;
+  color: #9c1d2d;
 }
 
 .statusBadge {
@@ -895,6 +995,166 @@ select:focus {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .schedulePanel h2 {
+    font-size: 1.08rem;
+    margin: 4px 0;
+  }
+
+  .scheduleIntro .eyebrow {
+    font-size: 0.66rem;
+  }
+
+  .scheduleRange {
+    font-size: 0.8rem;
+  }
+
+  .scheduleControls {
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .viewControls,
+  .roomSwitch {
+    display: flex;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .roomSwitch {
+    display: flex;
+    margin-top: 0;
+  }
+
+  .viewControls .pill,
+  .viewControls .activePill,
+  .roomTab,
+  .activeRoomTab {
+    font-size: 0.7rem;
+    min-height: 26px;
+    padding: 0 6px;
+  }
+
+  .viewControls .activePill,
+  .activeRoomTab {
+    font-weight: 800;
+  }
+
+  .scheduleMeta {
+    border-top: 1px solid rgba(220, 231, 239, 0.75);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 8px;
+  }
+
+  .navRow {
+    display: grid;
+    gap: 4px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .navRow .ghostButton {
+    font-size: 0.68rem;
+    min-height: 26px;
+    padding: 0 4px;
+    width: 100%;
+  }
+
+  .navToday {
+    font-weight: 900;
+  }
+
+  .statusLegend {
+    justify-content: center;
+  }
+
+  .statusLegend span {
+    font-size: 0.68rem;
+  }
+
+  .calendarWrap {
+    background: transparent;
+    border: 0;
+    margin-top: 10px;
+    overflow: visible;
+  }
+
+  .calendarDesktopOnly {
+    display: none !important;
+  }
+
+  .calendarGrid {
+    display: block;
+    min-width: 0;
+  }
+
+  .dayRow {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .dateCell {
+    align-items: baseline;
+    background: #f6f9fb;
+    border-bottom: 1px solid var(--line);
+    border-right: 0;
+    display: flex;
+    gap: 8px;
+    padding: 9px 12px;
+    position: static;
+  }
+
+  .dateCell strong {
+    font-size: 0.82rem;
+  }
+
+  .dateCell span {
+    font-size: 0.76rem;
+  }
+
+  .slotPair {
+    border-right: 0;
+    display: grid;
+    gap: 6px;
+    grid-template-columns: 1fr 1fr;
+    padding: 8px;
+  }
+
+  .slotPair.inactiveMobileRoom {
+    display: none;
+  }
+
+  .mobileRoomLabel {
+    display: none;
+  }
+
+  .slotCell {
+    border: 1px solid rgba(220, 231, 239, 0.85) !important;
+    border-left-width: 3px !important;
+    border-radius: 8px;
+    min-height: 0;
+    padding: 6px 7px;
+  }
+
+  .dayRow:nth-child(even) .slotCell {
+    background-color: #fff;
+  }
+
+  .slotPurpose {
+    -webkit-line-clamp: 3;
+    font-size: 0.72rem;
+  }
+
+  .slotMeta {
+    font-size: 0.62rem;
+    white-space: normal;
+  }
 }
 
 @media (max-width: 720px) {
@@ -939,12 +1199,13 @@ select:focus {
 
   .topNavLinks a {
     background: var(--card-soft);
-    padding: 8px 10px;
+    font-size: 0.74rem;
+    padding: 5px 8px;
   }
 
   .dashboardHeader h1,
   .hero h1 {
-    font-size: 2rem;
+    font-size: 1.55rem;
   }
 
   .twoColumn,
@@ -952,64 +1213,50 @@ select:focus {
     grid-template-columns: 1fr;
   }
 
-  .calendarWrap {
-    background: transparent;
-    border: 0;
-    overflow: visible;
+  .dashboardHeader {
+    margin: 10px 0;
+    padding: 0;
   }
 
-  .roomSwitch {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
+  .heroText {
+    font-size: 0.88rem;
   }
 
-  .headerGrid,
-  .slotHeaderGrid {
-    display: none;
+  .heroActions {
+    width: 100%;
   }
 
-  .calendarGrid {
-    display: block;
+  .heroActions .ghostButton,
+  .heroActions .primaryButton {
+    flex: 1;
+    font-size: 0.74rem;
+    min-height: 30px;
+  }
+
+  .roomSummaryGrid {
+    margin: 10px 0 12px;
+  }
+
+  .roomSummaryCard {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .roomSummaryCard h2 {
+    font-size: 1rem;
+  }
+
+  .summaryMetrics span {
+    font-size: 0.66rem;
     min-width: 0;
+    padding: 6px 8px;
   }
 
-  .dayRow {
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    box-shadow: var(--shadow-soft);
-    margin-bottom: 12px;
-    overflow: hidden;
+  .summaryMetrics strong {
+    font-size: 1rem;
   }
 
-  .dateCell {
-    border-bottom: 1px solid var(--line);
-    border-right: 0;
-  }
-
-  .slotPair {
-    border-right: 0;
-    display: grid;
-    gap: 8px;
-    grid-template-columns: 1fr;
-    padding: 10px;
-  }
-
-  .slotPair.inactiveMobileRoom {
-    display: none;
-  }
-
-  .mobileRoomLabel {
-    color: var(--ink);
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 900;
-  }
-
-  .slotCell {
-    border: 1px solid rgba(220, 231, 239, 0.85) !important;
-    border-radius: 8px;
-    min-height: 0;
+  .schedulePanel {
+    padding: 11px;
   }
 }
