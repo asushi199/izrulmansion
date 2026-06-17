@@ -43,7 +43,7 @@ export function AdminBookingTable({ bookings }: { bookings: Booking[] }) {
                     const inactive = booking.status === "cancelled" || booking.status === "rejected";
 
                     return (
-                      <article className={inactive ? "adminItem cancelled" : "adminItem"} key={booking.id}>
+                      <article className={`adminItem adminItem--${booking.status}${inactive ? " cancelled" : ""}`} key={booking.id}>
                         <div className="adminItemMain">
                           <div className="adminItemContent">
                             <div className="adminItemHeader">

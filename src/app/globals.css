@@ -887,42 +887,45 @@ select:focus {
 
 .adminTimeline {
   display: grid;
-  gap: 12px;
+  gap: 24px;
 }
 
 .adminYearGroup,
 .adminMonthGroup {
   display: grid;
-  gap: 10px;
+  gap: 0;
 }
 
 .adminGroupSummary,
 .adminMonthSummary {
   align-items: center;
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid rgba(220, 231, 239, 0.95);
-  border-radius: 8px;
+  background: none;
+  border: none;
+  border-radius: 0;
   cursor: pointer;
-  display: grid;
-  gap: 12px;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
+  gap: 8px;
   list-style: none;
 }
 
 .adminGroupSummary {
-  box-shadow: var(--shadow-soft);
-  font-size: 1.05rem;
+  border-bottom: 2px solid var(--line);
+  box-shadow: none;
+  color: var(--ink);
+  font-size: 0.95rem;
   font-weight: 900;
-  padding: 12px 14px;
+  padding: 0 2px 10px;
 }
 
 .adminMonthSummary {
-  background: #f8fbfd;
-  color: var(--ink);
-  font-size: 0.92rem;
-  font-weight: 850;
-  margin: 0 0 8px;
-  padding: 9px 12px;
+  background: none;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  margin: 0;
+  padding: 14px 2px 6px;
+  text-transform: uppercase;
 }
 
 .adminGroupSummary::-webkit-details-marker,
@@ -930,99 +933,175 @@ select:focus {
   display: none;
 }
 
-.adminGroupSummary::before,
-.adminMonthSummary::before {
+.adminGroupSummary::before {
   color: var(--primary);
-  content: ">";
-  font-size: 0.82rem;
-  margin-right: 2px;
+  content: "▸";
+  font-size: 0.66rem;
   transition: transform 160ms ease;
 }
 
-.adminYearGroup[open] > .adminGroupSummary::before,
-.adminMonthGroup[open] > .adminMonthSummary::before {
+.adminYearGroup[open] > .adminGroupSummary::before {
   transform: rotate(90deg);
+}
+
+.adminMonthSummary::before {
+  content: none;
 }
 
 .adminGroupSummary strong,
 .adminMonthSummary strong {
   color: var(--muted);
-  font-size: 0.76rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  margin-left: auto;
 }
 
-.adminMonthList,
+.adminMonthList {
+  display: grid;
+  gap: 0;
+}
+
 .adminList {
   display: grid;
-  gap: 10px;
+  gap: 5px;
+  padding-bottom: 4px;
 }
 
+/* ─── Booking Row ─── */
+
 .adminItem {
-  padding: 12px;
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1px solid rgba(220, 231, 239, 0.65) !important;
+  border-left: 3px solid var(--line) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 4px rgba(22, 52, 72, 0.04) !important;
+  padding: 9px 12px !important;
+  transition:
+    box-shadow 140ms ease,
+    transform 140ms ease;
+}
+
+.adminItem:hover {
+  box-shadow: 0 3px 16px rgba(22, 52, 72, 0.09) !important;
+  transform: translateY(-1px);
 }
 
 .adminItem.cancelled {
-  opacity: 0.72;
+  opacity: 0.55;
+}
+
+.adminItem--pending {
+  border-left-color: var(--warning) !important;
+}
+
+.adminItem--approved {
+  border-left-color: var(--primary) !important;
+}
+
+.adminItem--rejected,
+.adminItem--cancelled {
+  border-left-color: var(--line) !important;
+}
+
+.adminItem h2 {
+  font-size: 0.88rem !important;
+  font-weight: 800;
+  margin: 2px 0 3px !important;
 }
 
 .adminItemMain {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
-  gap: 12px;
+  gap: 10px;
   justify-content: space-between;
 }
 
 .adminItemContent {
+  flex: 1;
   min-width: 0;
 }
 
-.adminItemHeader,
-.adminMetaList {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .adminItemHeader {
-  gap: 8px;
-}
-
-.adminDateText {
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 800;
-}
-
-.adminMetaList {
-  color: var(--muted);
-  gap: 5px 8px;
-  margin-top: 4px;
-}
-
-.adminMetaList span {
-  background: var(--card-soft);
-  border: 1px solid rgba(220, 231, 239, 0.9);
-  border-radius: 999px;
-  font-size: 0.74rem;
-  font-weight: 700;
-  padding: 3px 8px;
-}
-
-.adminActions,
-.approvalActions {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
+.adminItem .statusBadge {
+  font-size: 0.6rem;
+  padding: 2px 7px;
+}
+
+.adminDateText {
+  color: var(--muted);
+  font-size: 0.69rem;
+  font-weight: 800;
+}
+
+.adminMetaList {
+  align-items: center;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 1px;
+}
+
+.adminMetaList span {
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: var(--muted);
+  font-size: 0.71rem;
+  font-weight: 600;
+  padding: 0 !important;
+}
+
+.adminMetaList span:first-child {
+  background: var(--primary-soft) !important;
+  border: 1px solid rgba(8, 133, 138, 0.14) !important;
+  border-radius: 4px !important;
+  color: var(--primary-dark);
+  font-size: 0.67rem;
+  font-weight: 800;
+  padding: 1px 6px !important;
+}
+
+.adminMetaList span + span::before {
+  color: rgba(220, 231, 239, 0.9);
+  content: "·";
+  margin: 0 5px;
+}
+
+.adminMetaList span:nth-child(2)::before {
+  content: none;
+  margin: 0;
+}
+
+.adminMetaList span:nth-child(2) {
+  margin-left: 6px;
+}
+
+.adminActions,
+.approvalActions {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
 .adminActions .primaryButton,
 .adminActions .dangerButton {
-  font-size: 0.72rem;
-  min-height: 30px;
-  padding: 0 10px;
+  font-size: 0.68rem;
+  min-height: 26px;
+  padding: 0 9px;
 }
 
 .approvalActions {
   display: grid;
+  flex-shrink: unset;
   grid-template-columns: 1fr 1fr;
   margin-top: 18px;
 }
@@ -1062,22 +1141,34 @@ select:focus {
 }
 
 .editPanel {
-  border-top: 1px solid var(--line);
-  margin-top: 10px;
-  padding-top: 10px;
+  border-top: 1px solid rgba(220, 231, 239, 0.65);
+  margin-top: 8px;
+  padding-top: 8px;
 }
 
-.editPanel summary {
+.editPanel > summary {
+  color: var(--primary-dark);
   cursor: pointer;
-  font-size: 0.82rem;
-  font-weight: 900;
+  font-size: 0.74rem;
+  font-weight: 800;
+  list-style: none;
+}
+
+.editPanel > summary::-webkit-details-marker {
+  display: none;
+}
+
+.editPanel > summary::before {
+  content: "✎ ";
+  font-size: 0.62rem;
+  opacity: 0.7;
 }
 
 .adminEditForm {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   grid-template-columns: repeat(3, minmax(160px, 1fr));
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .adminEditForm .primaryButton {
@@ -1098,9 +1189,7 @@ select:focus {
 @media (max-width: 860px) {
   .dashboardHeader,
   .hero,
-  .adminTop,
-  .panelHeader,
-  .adminItemMain {
+  .panelHeader {
     align-items: stretch;
     flex-direction: column;
   }
@@ -1380,5 +1469,105 @@ select:focus {
 
   .schedulePanel {
     padding: 11px;
+  }
+
+  .adminTop {
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 10px;
+    padding: 9px 14px;
+  }
+
+  .adminTop > div:first-child {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .adminTop > div:first-child > p {
+    display: none;
+  }
+
+  .adminTop h1 {
+    font-size: 1.05rem !important;
+    line-height: 1.2;
+    margin: 0 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .adminTop .heroActions {
+    flex-shrink: 0;
+    gap: 4px;
+    width: auto;
+  }
+
+  .adminTop .heroActions a.ghostButton {
+    display: none;
+  }
+
+  .adminTop .heroActions .dangerButton {
+    font-size: 0.7rem;
+    min-height: 28px;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 520px) {
+  .shell {
+    padding: 8px 10px;
+  }
+
+  .adminTop {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    margin: -8px -10px 10px;
+    padding: 8px 12px;
+    top: 0;
+  }
+
+  .adminTimeline {
+    gap: 14px;
+  }
+
+  .adminList {
+    gap: 4px;
+  }
+
+  .adminItem {
+    padding: 8px 10px !important;
+  }
+
+  .adminItemMain {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .adminActions {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .adminActions form {
+    flex: 1;
+  }
+
+  .adminActions .primaryButton,
+  .adminActions .dangerButton {
+    font-size: 0.73rem !important;
+    min-height: 34px !important;
+    width: 100%;
+  }
+
+  .adminDateText {
+    font-size: 0.67rem;
+  }
+
+  .adminItem h2 {
+    font-size: 0.85rem !important;
   }
 }
