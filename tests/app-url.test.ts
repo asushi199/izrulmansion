@@ -9,8 +9,14 @@ describe("app base URL resolution", () => {
   });
 
   it("adds https to configured production domains that omit a protocol", () => {
-    expect(resolveAppBaseUrl("izrulmansion.vercel.app", new Headers())).toBe(
-      "https://izrulmansion.vercel.app"
+    expect(resolveAppBaseUrl("pkgpantairemis.vercel.app", new Headers())).toBe(
+      "https://pkgpantairemis.vercel.app"
+    );
+  });
+
+  it("replaces the old temporary Vercel domain in generated links", () => {
+    expect(resolveAppBaseUrl(" https://izrulmansion.vercel.app/ ", new Headers())).toBe(
+      "https://pkgpantairemis.vercel.app"
     );
   });
 

@@ -326,26 +326,6 @@ select {
   font-weight: 800;
 }
 
-.floatingBookButton {
-  align-items: center;
-  background: linear-gradient(135deg, var(--primary), #0a9aa0);
-  border: 1px solid rgba(255, 255, 255, 0.82);
-  border-radius: 999px;
-  bottom: 18px;
-  box-shadow: 0 10px 24px rgba(8, 133, 138, 0.26);
-  color: #fff;
-  display: inline-flex;
-  font-size: 1.65rem;
-  font-weight: 700;
-  height: 50px;
-  justify-content: center;
-  line-height: 1;
-  position: fixed;
-  right: 18px;
-  width: 50px;
-  z-index: 30;
-}
-
 .fullWidth {
   width: 100%;
 }

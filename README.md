@@ -43,7 +43,7 @@ SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 ADMIN_PASSWORD=change-this-password
 ADMIN_SESSION_SECRET=change-this-random-secret
-APP_BASE_URL=http://localhost:3000
+APP_BASE_URL=https://pkgpantairemis.vercel.app
 WHATSAPP_ADMIN_PHONE=60123456789
 ```
 
@@ -69,7 +69,7 @@ Tetapkan environment variables berikut di Vercel:
 Pastikan `APP_BASE_URL` ialah URL sebenar laman selepas deploy, contohnya:
 
 ```env
-APP_BASE_URL=https://nama-projek.vercel.app
+APP_BASE_URL=https://pkgpantairemis.vercel.app
 ```
 
 ## WhatsApp

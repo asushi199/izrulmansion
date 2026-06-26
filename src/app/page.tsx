@@ -203,9 +203,6 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
         </div>
         <BookingForm bookings={bookings} configured={configured && !bookingError} />
       </section>
-      <Link className="floatingBookButton" href="#tempah" aria-label="Tempah sekarang">
-        +
-      </Link>
     </main>
   );
 }
