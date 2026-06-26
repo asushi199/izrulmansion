@@ -11,20 +11,22 @@ export function CalendarBoard({
   bookings: Booking[];
   dates: string[];
 }) {
+  const visibleRooms = rooms.filter((room) => room.id === activeMobileRoom);
+
   return (
     <div className="calendarWrap">
       <div className="calendarGrid headerGrid calendarDesktopOnly">
         <div className="dateHeader">Tarikh</div>
-        {rooms.map((room) => (
+        {visibleRooms.map((room) => (
           <div className="roomHeader" key={room.id}>
-            {room.name}
+            {room.name} <span>{room.category}</span>
           </div>
         ))}
       </div>
 
       <div className="calendarGrid slotHeaderGrid calendarDesktopOnly">
         <div />
-        {rooms.map((room) => (
+        {visibleRooms.map((room) => (
           <div className="slotHeaderPair" key={room.id}>
             <span>Pagi</span>
             <span>Petang</span>
@@ -38,9 +40,9 @@ export function CalendarBoard({
             <strong>{formatDayName(date)}</strong>
             <span>{formatMalayDate(date, { year: undefined })}</span>
           </div>
-          {rooms.map((room) => (
+          {visibleRooms.map((room) => (
             <div
-              className={room.id === activeMobileRoom ? "slotPair" : "slotPair inactiveMobileRoom"}
+              className="slotPair"
               key={`${date}-${room.id}`}
             >
               <div className="mobileRoomLabel">{room.name}</div>

@@ -4,7 +4,7 @@ export type Database = {
       bookings: {
         Row: {
           id: string;
-          room: "bilik_mesyuarat" | "studio";
+          room: "bilik_seminar" | "bilik_mesyuarat" | "studio";
           date: string;
           slot: "am" | "pm" | "full_day";
           name: string;
@@ -23,7 +23,7 @@ export type Database = {
         };
         Insert: {
           id?: string;
-          room: "bilik_mesyuarat" | "studio";
+          room: "bilik_seminar" | "bilik_mesyuarat" | "studio";
           date: string;
           slot: "am" | "pm" | "full_day";
           name: string;
@@ -41,7 +41,7 @@ export type Database = {
           cancelled_at?: string | null;
         };
         Update: {
-          room?: "bilik_mesyuarat" | "studio";
+          room?: "bilik_seminar" | "bilik_mesyuarat" | "studio";
           date?: string;
           slot?: "am" | "pm" | "full_day";
           name?: string;

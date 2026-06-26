@@ -25,7 +25,7 @@ export function BookingForm({
   configured: boolean;
 }) {
   const [state, formAction] = useFormState(createBookingAction, initialBookingState);
-  const [room, setRoom] = useState<Room>("bilik_mesyuarat");
+  const [room, setRoom] = useState<Room>(rooms[0].id);
   const [slot, setSlot] = useState<Slot>("am");
   const [date, setDate] = useState("");
 

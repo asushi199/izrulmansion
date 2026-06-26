@@ -1,4 +1,4 @@
-export type Room = "bilik_mesyuarat" | "studio";
+export type Room = "bilik_seminar" | "bilik_mesyuarat" | "studio";
 
 export type Slot = "am" | "pm" | "full_day";
 

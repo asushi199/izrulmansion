@@ -1,11 +1,11 @@
 # Tempahan Bilik PKG Pantai Remis
 
-Sistem web untuk mengurus tempahan `Bilik Mesyuarat` dan `Studio` di PKG Pantai Remis. Pengguna boleh menyemak kekosongan bilik, menghantar permohonan, dan memaklumkan admin melalui WhatsApp. Admin hanya meluluskan tempahan selepas menyemak permohonan.
+Sistem web untuk mengurus tempahan `Bilik Mentarang`, `Bilik Remis`, dan `Studio 1002` di PKG Pantai Remis. Pengguna boleh menyemak kekosongan bilik, menghantar permohonan, dan memaklumkan admin melalui WhatsApp. Admin hanya meluluskan tempahan selepas menyemak permohonan.
 
 ## Fungsi Utama
 
 - Paparan jadual mingguan dan bulanan.
-- Dua bilik: `Bilik Mesyuarat` dan `Studio`.
+- Tiga ruang: `Bilik Mentarang` (`Bilik Seminar`), `Bilik Remis` (`Bilik Mesyuarat`), dan `Studio 1002` (`Studio`).
 - Slot tempahan: `Pagi`, `Petang`, atau `Sepanjang Hari`.
 - Permohonan baharu masuk sebagai `Menunggu kelulusan`.
 - Slot `pending` dan `approved` akan menghalang tempahan bertindih.

@@ -39,7 +39,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Search
         <div>
           <p className="eyebrow">Panel Admin</p>
           <h1>Urus Tempahan Bilik</h1>
-          <p>Kemas kini atau batalkan rekod tempahan untuk Bilik Mesyuarat dan Studio.</p>
+          <p>Kemas kini atau batalkan rekod tempahan untuk semua ruang PKG Pantai Remis.</p>
         </div>
         <div className="heroActions">
           <Link className="ghostButton" href="/">

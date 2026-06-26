@@ -1,7 +1,7 @@
 import type { Room, Slot } from "./types";
 
 export function parseRoom(value: FormDataEntryValue | null): Room | null {
-  if (value === "bilik_mesyuarat" || value === "studio") return value;
+  if (value === "bilik_seminar" || value === "bilik_mesyuarat" || value === "studio") return value;
   return null;
 }
 

@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Tempahan Bilik PKG Pantai Remis",
-  description: "Sistem tempahan Bilik Mesyuarat dan Studio PKG Pantai Remis."
+  description: "Sistem tempahan Bilik Mentarang, Bilik Remis, dan Studio 1002 PKG Pantai Remis."
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

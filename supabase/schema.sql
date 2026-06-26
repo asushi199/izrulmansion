@@ -1,6 +1,6 @@
 create table if not exists public.bookings (
   id uuid primary key default gen_random_uuid(),
-  room text not null check (room in ('bilik_mesyuarat', 'studio')),
+  room text not null check (room in ('bilik_seminar', 'bilik_mesyuarat', 'studio')),
   date date not null,
   slot text not null check (slot in ('am', 'pm', 'full_day')),
   name text not null,
@@ -26,6 +26,13 @@ alter table public.bookings
   add column if not exists rejected_at timestamptz,
   add column if not exists notified_at timestamptz,
   add column if not exists notification_error text;
+
+alter table public.bookings
+  drop constraint if exists bookings_room_check;
+
+alter table public.bookings
+  add constraint bookings_room_check
+  check (room in ('bilik_seminar', 'bilik_mesyuarat', 'studio'));
 
 update public.bookings
 set status = case

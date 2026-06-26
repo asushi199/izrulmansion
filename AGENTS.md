@@ -3,7 +3,7 @@
 ## Project Context
 
 - This project is a Malay-language room booking dashboard for PKG Pantai Remis.
-- The system supports `Bilik Mesyuarat` and `Studio`.
+- The system supports `Bilik Mentarang` (`Bilik Seminar`), `Bilik Remis` (`Bilik Mesyuarat`), and `Studio 1002` (`Studio`).
 - Booking slots are `Pagi`, `Petang`, and `Sepanjang Hari`.
 - New bookings are saved as `pending` until approved by an admin.
 - Users notify the admin through a manual `wa.me` WhatsApp link, not WhatsApp Cloud API.

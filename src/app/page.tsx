@@ -116,23 +116,27 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
       <section className="roomSummaryGrid" aria-label="Ringkasan status bilik">
         {roomSummaries.map((room) => (
           <article className="roomSummaryCard" key={room.id}>
-            <div>
-              <p className="eyebrow">Paparan {view === "month" ? "bulan" : "minggu"} ini</p>
-              <h2>{room.name}</h2>
-            </div>
-            <div className="summaryMetrics">
-              <span>
-                <strong>{room.available}</strong>
-                Kosong
-              </span>
-              <span>
-                <strong>{room.pending}</strong>
-                Menunggu
-              </span>
-              <span>
-                <strong>{room.approved}</strong>
-                Diluluskan
-              </span>
+            <img alt={`${room.name} - ${room.category}`} className="roomSummaryImage" src={room.imageSrc} />
+            <div className="roomSummaryBody">
+              <div>
+                <p className="eyebrow">Paparan {view === "month" ? "bulan" : "minggu"} ini</p>
+                <h2>{room.name}</h2>
+                <p>{room.category}</p>
+              </div>
+              <div className="summaryMetrics">
+                <span>
+                  <strong>{room.available}</strong>
+                  Kosong
+                </span>
+                <span>
+                  <strong>{room.pending}</strong>
+                  Menunggu
+                </span>
+                <span>
+                  <strong>{room.approved}</strong>
+                  Diluluskan
+                </span>
+              </div>
             </div>
           </article>
         ))}
@@ -157,7 +161,7 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
                   Bulan
                 </Link>
               </div>
-              <div className="roomSwitch" aria-label="Pilih bilik untuk paparan telefon">
+              <div className="roomSwitch" aria-label="Pilih bilik">
                 {rooms.map((room) => (
                   <Link
                     className={room.id === activeMobileRoom ? "activeRoomTab" : "roomTab"}
@@ -165,7 +169,7 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
                     key={room.id}
                     scroll={false}
                   >
-                    {room.name}
+                    {room.shortName}
                   </Link>
                 ))}
               </div>

@@ -1,8 +1,33 @@
 import type { Booking, Room, Slot } from "./types";
 
-export const rooms: Array<{ id: Room; name: string; shortName: string }> = [
-  { id: "bilik_mesyuarat", name: "Bilik Mesyuarat", shortName: "Mesyuarat" },
-  { id: "studio", name: "Studio", shortName: "Studio" }
+export const rooms: Array<{
+  id: Room;
+  name: string;
+  shortName: string;
+  category: string;
+  imageSrc: string;
+}> = [
+  {
+    id: "bilik_seminar",
+    name: "Bilik Mentarang",
+    shortName: "Mentarang",
+    category: "Bilik Seminar",
+    imageSrc: "/rooms/bilik-mentarang.png"
+  },
+  {
+    id: "bilik_mesyuarat",
+    name: "Bilik Remis",
+    shortName: "Remis",
+    category: "Bilik Mesyuarat",
+    imageSrc: "/rooms/bilik-remis.png"
+  },
+  {
+    id: "studio",
+    name: "Studio 1002",
+    shortName: "Studio 1002",
+    category: "Studio",
+    imageSrc: "/rooms/studio-1002.png"
+  }
 ];
 
 export const slots: Array<{ id: Slot; label: string; shortLabel: string }> = [

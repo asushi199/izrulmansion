@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getConflictingBooking, isSlotAvailable } from "../src/lib/booking-rules";
+import { formatRoom, getConflictingBooking, isSlotAvailable, rooms } from "../src/lib/booking-rules";
 import type { Booking, BookingStatus, Slot } from "../src/lib/types";
 
 const booking = (slot: Slot, status: BookingStatus = "approved"): Booking => ({
@@ -23,6 +23,36 @@ const booking = (slot: Slot, status: BookingStatus = "approved"): Booking => ({
 });
 
 describe("booking slot conflict rules", () => {
+  it("lists renamed rooms with their categories and photos", () => {
+    expect(rooms).toEqual([
+      {
+        id: "bilik_seminar",
+        name: "Bilik Mentarang",
+        shortName: "Mentarang",
+        category: "Bilik Seminar",
+        imageSrc: "/rooms/bilik-mentarang.png"
+      },
+      {
+        id: "bilik_mesyuarat",
+        name: "Bilik Remis",
+        shortName: "Remis",
+        category: "Bilik Mesyuarat",
+        imageSrc: "/rooms/bilik-remis.png"
+      },
+      {
+        id: "studio",
+        name: "Studio 1002",
+        shortName: "Studio 1002",
+        category: "Studio",
+        imageSrc: "/rooms/studio-1002.png"
+      }
+    ]);
+
+    expect(formatRoom("bilik_mesyuarat")).toBe("Bilik Remis");
+    expect(formatRoom("studio")).toBe("Studio 1002");
+    expect(formatRoom("bilik_seminar")).toBe("Bilik Mentarang");
+  });
+
   it("blocks AM when the same room/date already has AM or full-day booking", () => {
     expect(isSlotAvailable([booking("am")], "bilik_mesyuarat", "2026-06-15", "am")).toBe(false);
     expect(isSlotAvailable([booking("full_day")], "bilik_mesyuarat", "2026-06-15", "am")).toBe(false);
@@ -62,5 +92,12 @@ describe("booking slot conflict rules", () => {
     const conflict = booking("full_day");
 
     expect(getConflictingBooking([conflict], "bilik_mesyuarat", "2026-06-15", "pm")).toEqual(conflict);
+  });
+
+  it("keeps the new seminar room independent from the meeting room", () => {
+    const seminarBooking = { ...booking("am"), id: "seminar-am", room: "bilik_seminar" as const };
+
+    expect(isSlotAvailable([seminarBooking], "bilik_seminar", "2026-06-15", "am")).toBe(false);
+    expect(isSlotAvailable([seminarBooking], "bilik_mesyuarat", "2026-06-15", "am")).toBe(true);
   });
 });
